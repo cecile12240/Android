@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tv_Todos; // 1
     String allTodos = "";
-
+    final int KEY_RESULT_CODE = 2;
 
 
     @Override
