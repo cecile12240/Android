@@ -71,4 +71,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d("debugs", "je suis dans la méthode onDestroy");
     }
 
+
+    // attend des données de la todoActivity :
+    // voir la méthod onActivityResult
+    // recuperer le bundle grace a son identifiant unique
+    // deserialiser ton todo_
+    // Ajoute tn todo_ a ta lisrte todo_.
+
 }

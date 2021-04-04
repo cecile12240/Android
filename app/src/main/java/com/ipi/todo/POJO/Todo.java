@@ -50,5 +50,5 @@ public class Todo {
 // todo1.getText() => jenga
 // todo1.getUrgency() => low
 
-// la méthode ToString() est un représentation de l'objet en une phrase ( ou chaine de caractère)
+// la méthode ToString() est une représentation de l'objet en une phrase ( ou chaine de caractère)
 //todo1.toString() =>  jenga6low
