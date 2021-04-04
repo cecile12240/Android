@@ -1,6 +1,7 @@
 package com.ipi.todo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -41,15 +42,20 @@ public class MainActivity extends AppCompatActivity {
         // ou allTodos +=
 
         tv_Todos = findViewById(R.id.tv_Todos); // 2
+
+        if(savedInstanceState != null){
+            // on va récupérer la sauvegarde
+            allTodos = savedInstanceState.getString("mesTodos");
+        }
+
         tv_Todos.setText(allTodos); //3
-
-
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d("debugs", "je suis dans la méthode onSave");
+        outState.putString("mesTodos",allTodos);
     }
 
     @Override
@@ -73,9 +79,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     // attend des données de la todoActivity :
-    // voir la méthod onActivityResult
-    // recuperer le bundle grace a son identifiant unique
+
+    // voir la méthode onActivityResult
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        Bundle passeur  = intent.getBundleExtra("todo");
+        Todo todoVersAffichage ;
+        todoVersAffichage = (Todo) passeur.getSerializable("monBundle");
+        allTodos = allTodos + todoVersAffichage.toString();
+        tv_Todos.setText(allTodos);
+
+    }
+    // récupérer le bundle grace à son identifiant unique
+
     // deserialiser ton todo_
-    // Ajoute tn todo_ a ta lisrte todo_.
+    // Ajouter ton todo_ dans ta liste todo_.
 
 }

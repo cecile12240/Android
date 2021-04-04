@@ -2,6 +2,7 @@ package com.ipi.todo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ipi.todo.POJO.Todo;
 
@@ -33,7 +35,6 @@ public class AddTodoActivity extends AppCompatActivity {
 
         button_add = findViewById(R.id.button_add);
         button_cancel = findViewById(R.id.button_cancel);
-
 
 
         // creation du spinner :
@@ -64,6 +65,15 @@ public class AddTodoActivity extends AppCompatActivity {
                 String strSpinner;
                 strSpinner = spinner.getSelectedItem().toString();
 
+                if(strText_todo.length()<3){
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast;
+                    toast = Toast.makeText(getApplicationContext(),"3 caractères minimum svp !",
+                            duration);
+                    toast.show();
+                    return;
+                }
+
                 // je vérifie si tout ce passe comme prévue : Log.d("debugs", strText_todo + " " + strSpinner);
 
                 // créér un objet Todo_
@@ -72,21 +82,34 @@ public class AddTodoActivity extends AppCompatActivity {
                 // Log.d("debugs", todoVersAffichage.toString());
 
 
-
                 // envoyer les données à la vue principale:
 
-                    // Creer un objet Bundle : Role stocker le todo_, avec un id unique
-                    // Placer ton todos dans ce bundle
+                // Créér un objet Bundle : Role stocker le todo_, avec un id unique
+                Bundle passeur = new Bundle();
 
-                    // Crer un intent  : placer ce bundle a l'interieur ,
-                    // Envoyé l'intent a ta vue principal via method setResult
-                    // et finish ta vue todoActivity. finish()
+                // Placer ton todo_ dans ce bundle
+                    //passeur.getString("monBundle", String.valueOf(todoVersAffichage));
+                passeur.putSerializable("monBundle",todoVersAffichage);
+
+                // Créér un intent  : placer ce bundle a l'interieur,
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("todo", passeur);
+                // Envoyé l'intent a ta vue principal via method setResult
+                setResult(2, resultIntent);
+                // et finish ta vue todoActivity. finish()
+                finish();
             }
         });
 
-        // creer evenement pour le bouton annulé :
-        // Clique sur bouton annulé effacé le texte de text_todo.
+        // creer evenement pour le bouton annuler :
+        button_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cliquer sur bouton annuler pour effacer le texte de text_todo.
+                text_todo.setText("");
+            }
+
+        });
 
     }
-
 }

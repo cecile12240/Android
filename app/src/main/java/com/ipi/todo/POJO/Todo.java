@@ -1,6 +1,8 @@
 package com.ipi.todo.POJO;
 
-public class Todo {
+import java.io.Serializable;
+
+public class Todo implements Serializable {
     private int id; // 6
     private String text; // jenga
     private String urgency; // low
